@@ -1,0 +1,25 @@
+{
+  "name": "bovada-scraper",
+  "version": "1.0.0",
+  "description": "Scraper for Bovada Sportsbook",
+  "main": "index.js",
+  "scripts": {
+    "test": "tape '**/*.test.js' | tap-spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kapadiamush/bovada-scraper.git"
+  },
+  "keywords": [
+    "bovada",
+    "api",
+    "scraper",
+    "json"
+  ],
+  "author": "Mushaheed Kapadia",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kapadiamush/bovada-scraper/issues"
+  },
+  "homepage": "https://github.com/kapadiamush/bovada-scraper#readme"
+}
