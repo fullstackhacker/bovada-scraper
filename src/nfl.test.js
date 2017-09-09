@@ -4,7 +4,12 @@ const path = require('path');
 const { isString, isObject } = require('lodash/fp/lang');
 const { map } = require('lodash/fp/collection');
 
-const { convertXMLStringToJSObject, getDateObjects, getGamesFromDateObjects } = require('./nfl');
+const {
+  convertXMLStringToJSObject,
+  getDateObjects,
+  getGamesFromDateObjects,
+  normalizeGames
+} = require('./nfl');
 
 const NFL_XML_FIXTURE_PATH = path.join(__dirname, 'fixtures', 'NFL.xml');
 const readNFLXMLFile = next => {
@@ -46,6 +51,24 @@ test('Can compile a list of all games from date objects', assert => {
     const games = getGamesFromDateObjects(dateObjects);
 
     assert.deepEqual(games, nflGamesFixture, 'should compile a list of all upcoming/available games');
+    assert.end();
+  });
+});
+
+test('Can normalize game info for pointspread and moneyline', assert => {
+  const nflGamesNormalizedFixture = require(path.join(__dirname, 'fixtures', 'nflGamesNormalized'));
+
+  readNFLXMLFile((err, xmlData) => {
+    const jsObject = convertXMLStringToJSObject(xmlData);
+    const dateObjects = getDateObjects(jsObject);
+    const games = getGamesFromDateObjects(dateObjects);
+    const normalizedGames = normalizeGames(games);
+
+    assert.deepEqual(
+      normalizedGames,
+      nflGamesNormalizedFixture,
+      'should normalize all games into relevant data'
+    );
     assert.end();
   });
 });
