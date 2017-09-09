@@ -11,9 +11,11 @@ const normalizeGames = games => games.map(normalizeGame);
 
 const normalizeGame = game => {
   const [homeTeam, awayTeam] = game.Competitor.map(normalizeTeamLines);
+  const timestamp = Number(game.Time._attributes.TS);
   return {
     homeTeam,
-    awayTeam
+    awayTeam,
+    timestamp
   };
 };
 

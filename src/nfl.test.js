@@ -55,7 +55,7 @@ test('Can compile a list of all games from date objects', assert => {
   });
 });
 
-test('Can normalize game info for pointspread and moneyline', assert => {
+test('Can normalize game info for pointspread, moneyline, and timestamps', assert => {
   const nflGamesNormalizedFixture = require(path.join(__dirname, 'fixtures', 'nflGamesNormalized'));
 
   readNFLXMLFile((err, xmlData) => {
