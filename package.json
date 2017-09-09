@@ -24,7 +24,8 @@
   "homepage": "https://github.com/kapadiamush/bovada-scraper#readme",
   "dependencies": {
     "lodash": "^4.17.4",
-    "request": "^2.81.0"
+    "request": "^2.81.0",
+    "xml-js": "^1.4.1"
   },
   "devDependencies": {
     "tap-spec": "^4.1.1",
