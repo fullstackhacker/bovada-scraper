@@ -1,3 +1,5 @@
+'use strict';
+
 const test = require('tape');
 const fs = require('fs');
 const path = require('path');
@@ -8,7 +10,8 @@ const {
   convertXMLStringToJSObject,
   getDateObjects,
   getGamesFromDateObjects,
-  normalizeGames
+  normalizeGames,
+  normalizeNFLResponse
 } = require('./nfl');
 
 const NFL_XML_FIXTURE_PATH = path.join(__dirname, 'fixtures', 'NFL.xml');
@@ -68,6 +71,20 @@ test('Can normalize game info for pointspread, moneyline, timestamps, and scoreL
       normalizedGames,
       nflGamesNormalizedFixture,
       'should normalize all games into relevant data'
+    );
+    assert.end();
+  });
+});
+
+test('Can normalize xmlData for nfl with one curried function', assert => {
+  const nflGamesNormalizedFixture = require(path.join(__dirname, 'fixtures', 'nflGamesNormalized'));
+
+  readNFLXMLFile((err, xmlData) => {
+    const normalizedGames = normalizeNFLResponse(xmlData);
+    assert.deepEqual(
+      normalizedGames,
+      nflGamesNormalizedFixture,
+      'should normalize all games into relevant data in one curried function'
     );
     assert.end();
   });
