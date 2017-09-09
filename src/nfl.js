@@ -1,6 +1,8 @@
 'use strict';
-
 const { xml2json } = require('xml-js');
+
+const normalizeNFLResponse = xmlData =>
+  normalizeGames(getGamesFromDateObjects(getDateObjects(convertXMLStringToJSObject(xmlData))));
 
 const convertXMLStringToJSObject = xmlData => JSON.parse(xml2json(xmlData, { compact: true }));
 const getDateObjects = jsonResponse => jsonResponse.Schedule.EventType.Date;
@@ -47,5 +49,6 @@ module.exports = {
   convertXMLStringToJSObject,
   getDateObjects,
   getGamesFromDateObjects,
-  normalizeGames
+  normalizeGames,
+  normalizeNFLResponse
 };
