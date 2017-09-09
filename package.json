@@ -1,6 +1,6 @@
 {
-  "name": "bovada-scraper",
-  "version": "1.0.0",
+  "name": "bovada",
+  "version": "0.1.0",
   "description": "Scraper for Bovada Sportsbook",
   "main": "index.js",
   "scripts": {
