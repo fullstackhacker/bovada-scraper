@@ -2,8 +2,9 @@ const test = require('tape');
 const fs = require('fs');
 const path = require('path');
 const { isString, isObject } = require('lodash/fp/lang');
+const { map } = require('lodash/fp/collection');
 
-const { convertXMLStringToJSObject } = require('./nfl');
+const { convertXMLStringToJSObject, getDateObjects } = require('./nfl');
 
 const NFL_FIXTURE_PATH = path.join(__dirname, 'fixtures', 'NFL.xml');
 const readNFLXMLFile = next => {
@@ -20,7 +21,17 @@ test('Can properly load xml file', assert => {
 test('Can convert xml string to js object', assert => {
   readNFLXMLFile((err, xmlData) => {
     const jsObject = convertXMLStringToJSObject(xmlData);
-    assert.ok(isObject(jsObject));
+    assert.ok(isObject(jsObject), 'xml string can be converted to an xml object');
+    assert.end();
+  });
+});
+
+test('Can grab date elements', assert => {
+  readNFLXMLFile((err, xmlData) => {
+    const jsObject = convertXMLStringToJSObject(xmlData);
+    const dateObjects = getDateObjects(jsObject);
+    const attributes = map('_attributes')(dateObjects);
+    map(obj => assert.ok(obj.hasOwnProperty('TS'), 'each date object has a timestamp'))(attributes);
     assert.end();
   });
 });
