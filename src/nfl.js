@@ -10,16 +10,22 @@ const getGamesFromDateObjects = dateObjects =>
 const normalizeGames = games => games.map(normalizeGame);
 
 const normalizeGame = game => {
-  const [homeTeam, awayTeam] = game.Competitor.map(normalizeTeamLines);
+  const [homeTeam, awayTeam] = game.Competitor.map(normalizeTeamLine);
   const timestamp = Number(game.Time._attributes.TS);
+  const [over, under] = game.Line.Choice.map(normalizeScoreLine);
+
   return {
     homeTeam,
     awayTeam,
-    timestamp
+    timestamp,
+    scoreLine: {
+      over,
+      under
+    }
   };
 };
 
-const normalizeTeamLines = team => {
+const normalizeTeamLine = team => {
   const [pointSpreadData, moneyLineData] = team.Line;
 
   const pointSpread = {
@@ -31,6 +37,11 @@ const normalizeTeamLines = team => {
 
   return { pointSpread, moneyLine };
 };
+
+const normalizeScoreLine = scoreLine => ({
+  line: scoreLine._attributes.NUMBER,
+  vig: scoreLine.Odds._attributes.Line
+});
 
 module.exports = {
   convertXMLStringToJSObject,
