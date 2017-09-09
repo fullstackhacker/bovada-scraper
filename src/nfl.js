@@ -28,8 +28,9 @@ const normalizeGame = game => {
 };
 
 const normalizeTeamLine = team => {
-  const [pointSpreadData, moneyLineData] = team.Line;
+  const name = team._attributes.NAME;
 
+  const [pointSpreadData, moneyLineData] = team.Line;
   const pointSpread = {
     line: pointSpreadData.Choice._attributes.NUMBER,
     vig: pointSpreadData.Choice.Odds._attributes.Line
@@ -37,7 +38,7 @@ const normalizeTeamLine = team => {
 
   const moneyLine = moneyLineData.Choice.Odds._attributes.Line;
 
-  return { pointSpread, moneyLine };
+  return { name, pointSpread, moneyLine };
 };
 
 const normalizeScoreLine = scoreLine => ({
